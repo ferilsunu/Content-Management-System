@@ -1,0 +1,31 @@
+<div class="container">
+
+
+
+
+ <div class="row p-4">
+     <h2>Comments</h2>
+ 
+<table class="table table-striped table-brodened">
+    <thead>
+        <th>id</th>
+        <th>Comment</th>
+        <th>User</th>
+        <th>Commented On</th>  
+        <th>Delete</th>
+    </thead>
+    <tbody>
+      {{#each comments}}
+        <tr>
+            <td>{{_id}}</td>
+            <td>{{body}}</td>]
+            <td>{{user.firstName}}</td>
+            <td>{{GenerateTime date 'MMMM Do YYYY'}}</td>
+            <form action="/admin/comments/{{_id}}?_method=DELETE" method="POST"><td><button type="submit" class="btn btn-danger">Delete</button></td></form>
+
+        </tr>
+      {{/each}}  
+    </tbody>
+</table>
+</div>
+</div>

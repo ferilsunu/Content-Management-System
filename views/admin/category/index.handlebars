@@ -1,0 +1,49 @@
+
+ <div class="row pl-4">
+    <div class="col-sm-4">
+    <h3>Create Category</h3>
+    <form action="/admin/category/createCategory" method="POST">
+    <div class="form-group">
+        <input type="text" name="category_name">
+       
+    </div>
+     <button class="btn btn-primary">Create</button>
+    </form>
+
+
+    </div>
+    <div class="col-sm-7">
+    {{#if success_message}}
+    <div class="alert alert-success">
+            {{success_message}}
+    </div>
+
+    {{/if}}
+    <table class="table table-brodened table-striped">
+        <thead>
+            <th>id</th>
+            <th>Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </thead>
+        <tbody>
+            {{#each category}}
+            <tr>
+                <td>{{_id}}</td>
+                <td>{{name}}</td>
+             
+                <td><a href="/admin/category/edit/{{_id}}"><i class="fas fa-edit"></i></a></td>
+            
+                <form action="/admin/category/delete/{{_id}}?_method=DELETE" method="POST">
+                <td><button type="submit"><i class="fas fa-times"></i></button></td>
+                </form>
+            </tr>
+            {{/each}}
+            
+        </tbody>
+    </table>
+    </div>
+
+
+
+

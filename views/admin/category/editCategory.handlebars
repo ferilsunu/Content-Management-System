@@ -1,0 +1,17 @@
+
+ <div class="row pl-4">
+    <div class="col-sm-4">
+    <h3>Edit Category</h3>
+    <form action="/admin/category/edit/{{fetched_category._id}}?_method=put" method="POST">
+    <div class="form-group">
+        <input type="text" name="category_name" value="{{fetched_category.name}}">
+       
+    </div>
+     <button class="btn btn-primary">Edit</button>
+    </form>
+    </div>
+
+
+
+
+
