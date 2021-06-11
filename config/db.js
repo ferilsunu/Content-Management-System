@@ -1,3 +1,5 @@
-module.exports = {
-    url: 'mongodb+srv://cms-user:feril1234@cluster0.lccke.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+if (process.env.NODE_ENV === "production") {
+    module.exports = require('./production-db')
+} else {
+    module.exports = require('./dev-db')
 }
