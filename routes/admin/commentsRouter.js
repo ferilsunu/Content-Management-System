@@ -5,11 +5,12 @@ const {getComments,createComments,deleteComments} = require('../../controllers/a
 
 
 
-//Comment fetch and create route
+
 router.route('/')
 .get(authenticatedChecker,getComments)
 .post(authenticatedChecker,createComments)
-//Comment Delete Route
+
+
 router.route('/:id')
 .delete(authenticatedChecker,deleteComments)
 

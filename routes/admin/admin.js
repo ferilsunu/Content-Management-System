@@ -24,8 +24,13 @@ router.all('/*',(req,res,next)=>{
 
 router.get('/' ,authenticatedChecker.authenticatedChecker, (req , res)=>{
         
-        const current_user = req.user
-        res.render('admin/index',{user_data:current_user })
+        postModel.countDocuments({},(err,count)=>{
+            const current_user = req.user
+            res.render('admin/index',{user_data:current_user, postCount: count })
+
+      
+        })
+
 
    
 

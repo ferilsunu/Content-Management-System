@@ -15,15 +15,24 @@ router.all('/*',(req,res,next)=>{
 
 
 router.get('/' , async (req , res)=>{
-    const fetched_posts = await postModel.find({}).lean()
-    const fetched_cat = await categoryModel.find({}).lean()
-    
-    const current_user = req.user
+    const limit = 10
+    const current_page = req.query.page || 1
+    const skip = (limit * current_page) - limit
 
-    res.render('home/index',{
-        posts: fetched_posts,
-        category: fetched_cat,
-        user_data: current_user
+    const fetched_posts = await postModel.find({}).lean().limit(limit).skip(skip)
+
+    postModel.countDocuments({},async (postCount)=>{
+        const fetched_cat = await categoryModel.find({}).lean()
+        const current_user = req.user
+    
+        res.render('home/index',{
+            posts: fetched_posts,
+            category: fetched_cat,
+            user_data: current_user,
+            current: current_page,
+            
+        })
+    
     })
 
 
@@ -47,7 +56,6 @@ passport.use(new LocalStrategy({usernameField:'email'}, (email,password,done)=>{
      bcrypt.compare(password,user.password,(err,matched)=>{
         if(err)return err
         if(matched){
-            
             return done(null,user)
         }else {return done(null,false,{message:"Incorrect Password"})}
 
@@ -133,9 +141,9 @@ router.get('/register' , (req , res)=>{
  })
 
 
- router.get('/post/:id' , async (req , res)=>{
-    const id = req.params.id
-    const fetched_post = await postModel.findOne({_id:id}).lean()
+ router.get('/post/:slug' , async (req , res)=>{
+    const slug = req.params.slug
+    const fetched_post = await postModel.findOne({slug:slug}).lean()
     const fetched_cat = await categoryModel.find({}).lean()
     res.render('home/single-post',
     {fetched_post: fetched_post, category: fetched_cat})

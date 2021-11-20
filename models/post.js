@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const URLSlugs = require('mongoose-url-slugs');
 const postScehma = new mongoose.Schema({
    
     title: {
@@ -18,6 +19,9 @@ const postScehma = new mongoose.Schema({
     body: {
         type: String,
      
+    },
+    slug:{
+        type: String
     },
     category: {
         type: String
@@ -39,5 +43,6 @@ const postScehma = new mongoose.Schema({
 },{
     usePushEach: true
 })
+mongoose.plugin(URLSlugs('title',{field:'slug'}))
 
 module.exports = mongoose.model('post',postScehma)
